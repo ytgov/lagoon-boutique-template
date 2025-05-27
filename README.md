@@ -45,10 +45,16 @@ contain only alphanumeric or hyphen characters.
 4. Install the site with the following options:
    - Choose language: English
    - Installation profile: Minimal
-   - Configure site: as desired but will be overridden shortly
+   - Configure site: as desired but site settings will be overridden shortly.
+     The site email address should be `eservices@yukon.ca` unless advised otherwise by eServices.
 5. Get the installation's site UUID: `ddev drush cget system.site uuid`
 6. Replace the `uuid` value in `config/sync/system.site.yml` with the UUID from
    the previous step.
    Change the `name` value as desired.
+   _Once you've created a specific project from this template, you'll need to override this new UUID value in
+   `config/sync/system.site.yml`on any new DB-less installations of the project using
+   `ddev drush cset system.site uuid <new UUID>`._
 7. Import the template's default configuration: `ddev drush cim -y`
 8. Genuflect to the Drupal God: `ddev drush cr`
+9. Add the user created in step #4 to the Administrator role.
+10. Verify there any errors shown on the Drupal Status report (`/admin/reports/status`) are within reason.
