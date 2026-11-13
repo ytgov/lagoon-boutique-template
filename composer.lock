@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "4dacdce4afb560bead31de537d5357cc",
+    "content-hash": "26697f8622ff6530bc2048c647716e24",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -9761,12 +9761,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/ytgov/lagoon-boutique-base-image.git",
-                "reference": "006c339497a1fd01222f0c3ae772026c4d49bbb4"
+                "reference": "0c3c1b85534d2686986d54f5d2e9998fb324c675"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ytgov/lagoon-boutique-base-image/zipball/006c339497a1fd01222f0c3ae772026c4d49bbb4",
-                "reference": "006c339497a1fd01222f0c3ae772026c4d49bbb4",
+                "url": "https://api.github.com/repos/ytgov/lagoon-boutique-base-image/zipball/0c3c1b85534d2686986d54f5d2e9998fb324c675",
+                "reference": "0c3c1b85534d2686986d54f5d2e9998fb324c675",
                 "shasum": ""
             },
             "require": {
@@ -9846,9 +9846,10 @@
                         "type:drupal-custom-theme"
                     ]
                 },
+                "composer-exit-on-patch-failure": true,
                 "patches": {
                     "drupal/entity_reference_revisions": {
-                        "Non-translatable fields can only be changed when updating the current revision (#3150084, MR !8 snapshot 2026-09-21)": "patches/entity_reference_revisions-3150084-mr8.diff"
+                        "Non-translatable fields can only be changed when updating the current revision (#3150084, MR !8 snapshot 2026-09-21)": "https://raw.githubusercontent.com/ytgov/lagoon-boutique-base-image/45833fd6ea2f83439c96f741dea51662945e2043/patches/entity_reference_revisions-3150084-mr8.diff"
                     },
                     "drupal/core": {
                         "Exposed filters get values from url when ajax is on": "https://www.drupal.org/files/issues/2024-08-23/drupal-3121172-34.patch"
@@ -9866,7 +9867,7 @@
                 "source": "https://github.com/ytgov/lagoon-boutique-base-image/tree/prod11",
                 "issues": "https://github.com/ytgov/lagoon-boutique-base-image/issues"
             },
-            "time": "2026-11-13T21:01:40+00:00"
+            "time": "2026-11-13T23:05:16+00:00"
         }
     ],
     "packages-dev": [],
