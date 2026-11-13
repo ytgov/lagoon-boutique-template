@@ -1,1 +1,4 @@
 label: 'Terme de taxonomie'
+tags:
+  description: '[term:description]'
+  title: '[term:name] | [site:name]'

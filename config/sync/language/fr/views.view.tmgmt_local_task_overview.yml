@@ -46,7 +46,6 @@ display:
           action_title: 'Pour la sélection'
         status:
           label: État
-          format_plural_string: !!binary MQNAY291bnQ=
         progress:
           label: Progression
         title:
@@ -84,7 +83,6 @@ display:
           action_title: 'Pour la sélection'
         status:
           label: État
-          format_plural_string: !!binary MQNAY291bnQ=
         progress:
           label: Progression
         title:
@@ -123,7 +121,6 @@ display:
           action_title: 'Pour la sélection'
         status:
           label: État
-          format_plural_string: !!binary MQNAY291bnQ=
         title:
           label: Libellé
           separator: ', '
@@ -234,7 +231,6 @@ display:
           action_title: 'Pour la sélection'
         status:
           label: État
-          format_plural_string: !!binary MQNAY291bnQ=
         progress:
           label: Progression
         title:
@@ -272,7 +268,6 @@ display:
           action_title: 'Pour la sélection'
         status:
           label: État
-          format_plural_string: !!binary MQNAY291bnQ=
         title:
           label: Libellé
           separator: ', '

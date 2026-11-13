@@ -1,25 +1,26 @@
 display:
   default:
-    display_title: Principal
     display_options:
-      exposed_form:
-        options:
-          submit_button: Appliquer
-          reset_button_label: Réinitialiser
-          exposed_sorts_label: 'Trier par'
-          sort_asc_label: Asc
-          sort_desc_label: Desc
-      pager:
-        options:
+      filters:
+        job_type:
+          group_info:
+            label: 'Type de processus'
+            group_items:
+              1:
+                title: Normal
+              2:
+                title: Continu
           expose:
-            items_per_page_label: 'Éléments par page'
-            items_per_page_options_all_label: '- Tout -'
-            offset_label: Décalage
-          tags:
-            previous: '‹ Précédent'
-            next: 'Suivant ›'
-            first: '« Premier'
-            last: 'Dernier »'
+            label: 'Type de processus'
+        state:
+          expose:
+            label: États
+          group_info:
+            label: État
+        source_language:
+          expose:
+            label: "Langue d'origine"
+      title: 'Éléments de travail'
       fields:
         state:
           label: État
@@ -46,24 +47,25 @@ display:
           separator: ', '
         operations:
           label: Actions
-      filters:
-        state:
+      pager:
+        options:
+          tags:
+            next: 'Suivant ›'
+            previous: '‹ Précédent'
+            first: '« Premier'
+            last: 'Dernier »'
           expose:
-            label: États
-          group_info:
-            label: État
-        source_language:
-          expose:
-            label: "Langue d'origine"
-        job_type:
-          group_info:
-            label: 'Type de processus'
-            group_items:
-              1:
-                title: Normal
-              2:
-                title: Continu
-      title: 'Éléments de travail'
+            items_per_page_label: 'Éléments par page'
+            items_per_page_options_all_label: '- Tout -'
+            offset_label: Décalage
+      exposed_form:
+        options:
+          submit_button: Appliquer
+          reset_button_label: Réinitialiser
+          exposed_sorts_label: 'Trier par'
+          sort_asc_label: Asc
+          sort_desc_label: Desc
+    display_title: Principal
   page_1:
     display_title: Page
     display_options:

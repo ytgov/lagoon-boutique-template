@@ -23,7 +23,6 @@ display:
       fields:
         status:
           label: État
-          format_plural_string: !!binary MQNAY291bnQ=
         progress:
           label: Progression
         label:

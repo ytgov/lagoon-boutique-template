@@ -22,6 +22,7 @@ module:
   easy_breadcrumb: 0
   editor: 0
   entity_reference_revisions: 0
+  externalauth: 0
   field: 0
   field_group: 0
   field_ui: 0
@@ -41,6 +42,7 @@ module:
   linkit: 0
   linkit_attributes: 0
   locale: 0
+  mailer_transport: 0
   matomo: 0
   media: 0
   media_library: 0
