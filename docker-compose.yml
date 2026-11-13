@@ -28,7 +28,7 @@ services:
       dockerfile: lagoon/cli.dockerfile
     image: &cli-image ${COMPOSE_PROJECT_NAME:-lagoon-boutique-template}-cli
     labels:
-      lagoon.base.image: ghcr.io/ytgov/lagoon-boutique-base-image-cli:latest
+      lagoon.base.image: ghcr.io/ytgov/lagoon-boutique-base-image-cli:11.x
       lagoon.type: cli-persistent
       lagoon.persistent.name: nginx
       lagoon.persistent: /app/web/sites/default/files/
@@ -47,7 +47,7 @@ services:
       args:
         CLI_IMAGE: *cli-image
     labels:
-      lagoon.base.image: ghcr.io/ytgov/lagoon-boutique-base-image-nginx:latest
+      lagoon.base.image: ghcr.io/ytgov/lagoon-boutique-base-image-nginx:11.x
       lagoon.type: nginx-php-persistent
       lagoon.persistent: /app/web/sites/default/files/
       lando.type: nginx-drupal
@@ -68,7 +68,7 @@ services:
       args:
         CLI_IMAGE: *cli-image
     labels:
-      lagoon.base.image: ghcr.io/ytgov/lagoon-boutique-base-image-fpm:latest
+      lagoon.base.image: ghcr.io/ytgov/lagoon-boutique-base-image-fpm:11.x
       lagoon.type: nginx-php-persistent
       lagoon.name: nginx
       lagoon.persistent: /app/web/sites/default/files/
@@ -80,7 +80,7 @@ services:
       <<: *default-environment
 
   mariadb:
-    image: uselagoon/mariadb-10.5-drupal:latest
+    image: uselagoon/mariadb-10.11-drupal:26.11.2
     labels:
       lagoon.type: mariadb
       lando.type: mariadb-drupal

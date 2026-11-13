@@ -10,11 +10,11 @@
         },
         {
             "type": "vcs",
-            "url": "git@github.com:ytgov/lagoon-boutique-base-image.git"
+            "url": "https://github.com/ytgov/lagoon-boutique-base-image.git"
         }
     ],
     "require": {
-        "ytgov/lagoon-boutique-base-image": "dev-prod"
+        "ytgov/lagoon-boutique-base-image": "dev-prod11"
     },
     "minimum-stability": "dev",
     "prefer-stable": true,
@@ -43,7 +43,15 @@
             "drupal/core-composer-scaffold": true,
             "cweagans/composer-patches": true,
             "composer/installers": true,
-            "dealerdirect/phpcodesniffer-composer-installer": true
+            "dealerdirect/phpcodesniffer-composer-installer": true,
+            "php-http/discovery": true,
+            "phpstan/extension-installer": true,
+            "symfony/runtime": true,
+            "tbachert/spi": false
+        },
+        "sort-packages": true,
+        "platform": {
+            "php": "8.4.0"
         }
     }
 }

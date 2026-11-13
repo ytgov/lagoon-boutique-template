@@ -1,4 +1,4 @@
-# Government of Yukon Lagoon Drupal 10 Template
+# Government of Yukon Lagoon Drupal 11 Template
 
 ## Introduction
 
