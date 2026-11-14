@@ -12,6 +12,9 @@ database:
 use_dns_when_possible: true
 composer_version: "2"
 web_environment:
+    # Load development.settings.php and development.services.yml, which
+    # override the production config committed in config/sync.
+    - LAGOON_ENVIRONMENT_TYPE=development
     - LAGOON_ENVIRONMENT=lagoon-test
     - LAGOON_PROJECT=lagoon-boutique-template
 corepack_enable: false
