@@ -14,7 +14,7 @@
         }
     ],
     "require": {
-        "ytgov/lagoon-boutique-base-image": "dev-prod11"
+        "ytgov/lagoon-boutique-base-image": "^11.0"
     },
     "minimum-stability": "dev",
     "prefer-stable": true,

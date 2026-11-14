@@ -40,6 +40,7 @@ jobs:
             exit 1
           fi
           echo "BASE_REF=$ref" >> "$GITHUB_ENV"
+          echo "MAJOR=${BASH_REMATCH[1]}" >> "$GITHUB_ENV"
           echo "CLI_IMAGE=ghcr.io/ytgov/lagoon-boutique-base-image-cli:${BASH_REMATCH[1]}.x" >> "$GITHUB_ENV"
 
       - name: Checkout base
@@ -58,17 +59,39 @@ jobs:
           -v "$GITHUB_WORKSPACE/template:/app" -w /app "$CLI_IMAGE"
           composer validate --no-check-publish
 
-      # The template must track the latest base. A stale lock is only a
-      # warning, because every base merge makes it stale until the template's
-      # lock is refreshed.
-      - name: Check the locked base commit
+      # The template pins a base release: a composer version in composer.lock
+      # and the same image tag in lagoon/*.dockerfile and the
+      # lagoon.base.image labels in docker-compose.yml. They must agree.
+      - name: Check the base release is consistent
+        working-directory: template
         run: |
-          locked=$(jq -r '.packages[] | select(.name == "ytgov/lagoon-boutique-base-image") | .source.reference' template/composer.lock)
-          head=$(git -C base rev-parse HEAD)
-          if [ "$locked" = "$head" ]; then
-            echo "composer.lock is on base $BASE_REF ($head)"
+          locked=$(jq -r '.packages[] | select(.name == "ytgov/lagoon-boutique-base-image") | .version' composer.lock)
+          echo "LOCKED=$locked" >> "$GITHUB_ENV"
+          if ! [[ "$locked" =~ ^v[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+            echo "::error file=composer.lock::composer.lock has base $locked, not a vX.Y.Z release"
+            exit 1
+          fi
+          status=0
+          while IFS=: read -r file line tag; do
+            if [ "$tag" != "${locked#v}" ]; then
+              echo "::error file=$file,line=$line::Base image tag :$tag does not match composer.lock ($locked)"
+              status=1
+            fi
+          done < <(grep -n -o 'lagoon-boutique-base-image-[a-z]*:[^ ]*' lagoon/*.dockerfile docker-compose.yml |
+            sed 's/:lagoon-boutique-base-image-[a-z]*:/:/')
+          [ "$status" = 0 ] && echo "composer.lock and every base image use $locked"
+          exit $status
+
+      # The template must track the latest base release. A newer release is
+      # only a warning: Dependabot proposes the bump.
+      - name: Check for a newer base release
+        run: |
+          latest=$(git ls-remote --tags --refs https://github.com/ytgov/lagoon-boutique-base-image.git "v$MAJOR.*" |
+            sed 's|.*refs/tags/||' | grep -E '^v[0-9]+\.[0-9]+\.[0-9]+$' | sort -V | tail -1)
+          if [ "$latest" = "$LOCKED" ]; then
+            echo "$LOCKED is the latest base release"
           else
-            echo "::warning file=composer.lock::composer.lock has base ${locked:0:7}, but $BASE_REF is at ${head:0:7}. Run: composer update ytgov/lagoon-boutique-base-image -W"
+            echo "::warning file=composer.lock::The template uses base $LOCKED, but $latest is released"
           fi
 
       # Builds what Lagoon builds, from the template's own composer.lock.
@@ -80,7 +103,9 @@ jobs:
           docker build -f lagoon/php.dockerfile --build-arg CLI_IMAGE=canary-cli -t canary-php .
 
       # Installs a site from this template's working tree against the head of
-      # the matching base branch. See scripts/canary.sh in the base repo.
+      # the matching base branch, which may be ahead of the pinned release, so
+      # the template is also tested against the next one. See scripts/canary.sh
+      # in the base repo.
       - name: Canary
         env:
           COMPOSER_AUTH: '{"github-oauth": {"github.com": "${{ secrets.GITHUB_TOKEN }}"}}'
