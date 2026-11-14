@@ -1,13 +1,15 @@
-# Dependabot version updates for the template (prod11).
+# Dependabot version updates. Copied unchanged into every site made from the
+# template.
 #
-# Dependabot only reads this file from the repository's default branch
-# (prod11). Keep identical copies on the other prod branches anyway, so the
-# .github directory stays the same everywhere.
+# Dependabot only reads this file from the repository's default branch, and
+# opens its PRs against that branch (prod11 in the template, release-1 in a
+# site), so no entry sets target-branch. Keep identical copies on the other
+# release branches anyway, so the .github directory stays the same everywhere.
 #
 # Every PR runs the canary (see .github/workflows/canary.yml), so a bump that
 # breaks a site built from the template fails before it can be merged.
 #
-# Contrib modules and core come from the base; bump them there.
+# Core and the base's contrib modules come from the base; bump them there.
 
 version: 2
 
@@ -16,12 +18,11 @@ version: 2
 # workflow fails if they disagree.
 multi-ecosystem-groups:
   base-release:
-    target-branch: prod11
     schedule:
       interval: weekly
 
 updates:
-  # The template requires only ytgov/lagoon-boutique-base-image.
+  # The base release. Sites' own extra modules are bumped in this PR too.
   - package-ecosystem: composer
     directory: /
     patterns: ["*"]
@@ -38,13 +39,11 @@ updates:
   # The MariaDB image in docker-compose.yml.
   - package-ecosystem: docker-compose
     directory: /
-    target-branch: prod11
     schedule:
       interval: weekly
 
   - package-ecosystem: github-actions
     directory: /
-    target-branch: prod11
     schedule:
       interval: weekly
     groups:
