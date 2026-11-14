@@ -1,0 +1,99 @@
+name: Canary
+
+on:
+  push:
+    branches: [ 'prod[0-9]*' ]
+  pull_request:
+    branches: [ 'prod[0-9]*' ]
+  workflow_dispatch:
+
+jobs:
+  canary:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+
+    # Database for the canary site.
+    services:
+      mariadb:
+        image: uselagoon/mariadb-10.11-drupal:26.11.2
+        ports:
+          - 3306:3306
+
+    steps:
+      - name: Checkout template
+        uses: actions/checkout@v7
+        with:
+          path: template
+
+      # Template prodNN always builds on base prodNN and its :NN.x images.
+      # Test a PR against its target branch and a push against its own branch.
+      - name: Choose base branch
+        run: |
+          if [ "$GITHUB_EVENT_NAME" = pull_request ]; then
+            ref="$GITHUB_BASE_REF"
+          else
+            ref="$GITHUB_REF_NAME"
+          fi
+          if ! [[ "$ref" =~ ^prod([0-9]+)$ ]]; then
+            echo "::error::$ref is not a prodNN branch, so there is no matching base branch"
+            exit 1
+          fi
+          echo "BASE_REF=$ref" >> "$GITHUB_ENV"
+          echo "CLI_IMAGE=ghcr.io/ytgov/lagoon-boutique-base-image-cli:${BASH_REMATCH[1]}.x" >> "$GITHUB_ENV"
+
+      - name: Checkout base
+        uses: actions/checkout@v7
+        with:
+          repository: ytgov/lagoon-boutique-base-image
+          ref: ${{ env.BASE_REF }}
+          path: base
+
+      - name: Pull base CLI image
+        run: docker pull "$CLI_IMAGE"
+
+      - name: Validate composer.json and composer.lock
+        run: >-
+          docker run --rm -u "$(id -u):0" -e HOME=/tmp
+          -v "$GITHUB_WORKSPACE/template:/app" -w /app "$CLI_IMAGE"
+          composer validate --no-check-publish
+
+      # The template must track the latest base. A stale lock is only a
+      # warning, because every base merge makes it stale until the template's
+      # lock is refreshed.
+      - name: Check the locked base commit
+        run: |
+          locked=$(jq -r '.packages[] | select(.name == "ytgov/lagoon-boutique-base-image") | .source.reference' template/composer.lock)
+          head=$(git -C base rev-parse HEAD)
+          if [ "$locked" = "$head" ]; then
+            echo "composer.lock is on base $BASE_REF ($head)"
+          else
+            echo "::warning file=composer.lock::composer.lock has base ${locked:0:7}, but $BASE_REF is at ${head:0:7}. Run: composer update ytgov/lagoon-boutique-base-image -W"
+          fi
+
+      # Builds what Lagoon builds, from the template's own composer.lock.
+      - name: Build site images
+        working-directory: template
+        run: |
+          docker build -f lagoon/cli.dockerfile -t canary-cli .
+          docker build -f lagoon/nginx.dockerfile --build-arg CLI_IMAGE=canary-cli -t canary-nginx .
+          docker build -f lagoon/php.dockerfile --build-arg CLI_IMAGE=canary-cli -t canary-php .
+
+      # Installs a site from this template's working tree against the head of
+      # the matching base branch. See scripts/canary.sh in the base repo.
+      - name: Canary
+        env:
+          COMPOSER_AUTH: '{"github-oauth": {"github.com": "${{ secrets.GITHUB_TOKEN }}"}}'
+        run: >-
+          base/scripts/canary.sh docker
+          --image "$CLI_IMAGE"
+          --template "$GITHUB_WORKSPACE/template"
+          --workdir "$RUNNER_TEMP/canary"
+
+      - name: Upload canary log
+        if: failure()
+        uses: actions/upload-artifact@v7
+        with:
+          name: canary-log
+          path: ${{ runner.temp }}/canary/canary.log
+          if-no-files-found: ignore
