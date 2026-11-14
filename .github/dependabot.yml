@@ -28,9 +28,9 @@ updates:
     patterns: ["*"]
     multi-ecosystem-group: base-release
 
-  # The base images in lagoon/*.dockerfile. Dependabot does not update the
-  # lagoon.base.image labels in docker-compose.yml, so a bump PR also needs a
-  # commit that sets them to the new tag (the canary workflow checks this).
+  # The base images in lagoon/*.dockerfile. docker-compose.yml has no
+  # lagoon.base.image labels: Lagoon uses them only to re-pull moving tags
+  # such as :latest, and a release tag never changes.
   - package-ecosystem: docker
     directory: /lagoon
     patterns: ["*"]
