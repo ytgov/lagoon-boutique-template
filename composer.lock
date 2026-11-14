@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "26697f8622ff6530bc2048c647716e24",
+    "content-hash": "2166907cc032cbd4c07ea2b2a33edbc1",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -9757,16 +9757,16 @@
         },
         {
             "name": "ytgov/lagoon-boutique-base-image",
-            "version": "dev-prod11",
+            "version": "v11.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ytgov/lagoon-boutique-base-image.git",
-                "reference": "0c3c1b85534d2686986d54f5d2e9998fb324c675"
+                "reference": "585ddf9fa30b30246717839ff0c4e86b68e7c9ed"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ytgov/lagoon-boutique-base-image/zipball/0c3c1b85534d2686986d54f5d2e9998fb324c675",
-                "reference": "0c3c1b85534d2686986d54f5d2e9998fb324c675",
+                "url": "https://api.github.com/repos/ytgov/lagoon-boutique-base-image/zipball/585ddf9fa30b30246717839ff0c4e86b68e7c9ed",
+                "reference": "585ddf9fa30b30246717839ff0c4e86b68e7c9ed",
                 "shasum": ""
             },
             "require": {
@@ -9864,18 +9864,16 @@
             "support": {
                 "docs": "https://www.drupal.org/docs/user_guide/en/index.html",
                 "chat": "https://www.drupal.org/node/314178",
-                "source": "https://github.com/ytgov/lagoon-boutique-base-image/tree/prod11",
+                "source": "https://github.com/ytgov/lagoon-boutique-base-image/tree/v11.0.0",
                 "issues": "https://github.com/ytgov/lagoon-boutique-base-image/issues"
             },
-            "time": "2026-11-13T23:05:16+00:00"
+            "time": "2026-11-14T00:38:00+00:00"
         }
     ],
     "packages-dev": [],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": {
-        "ytgov/lagoon-boutique-base-image": 20
-    },
+    "stability-flags": {},
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {},

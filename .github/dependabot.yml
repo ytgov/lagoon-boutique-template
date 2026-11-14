@@ -7,21 +7,33 @@
 # Every PR runs the canary (see .github/workflows/canary.yml), so a bump that
 # breaks a site built from the template fails before it can be merged.
 #
-# Not covered here:
-# - Contrib modules and core. They come from the base image; bump them there.
-# - The base images in lagoon/*.dockerfile. They use the moving :11.x tag,
-#   which always points at the latest prod11 build.
+# Contrib modules and core come from the base; bump them there.
 
 version: 2
-updates:
-  # The template requires only ytgov/lagoon-boutique-base-image (dev-prod11),
-  # so this proposes composer.lock refreshes when the base branch moves.
-  - package-ecosystem: composer
-    directory: /
+
+# A base release is a composer version (^11.0) and the matching image tag
+# (:11.0.0) in lagoon/*.dockerfile, so both are bumped in one PR. The canary
+# workflow fails if they disagree.
+multi-ecosystem-groups:
+  base-release:
     target-branch: prod11
     schedule:
       interval: weekly
-    open-pull-requests-limit: 5
+
+updates:
+  # The template requires only ytgov/lagoon-boutique-base-image.
+  - package-ecosystem: composer
+    directory: /
+    patterns: ["*"]
+    multi-ecosystem-group: base-release
+
+  # The base images in lagoon/*.dockerfile. Dependabot does not update the
+  # lagoon.base.image labels in docker-compose.yml, so a bump PR also needs a
+  # commit that sets them to the new tag (the canary workflow checks this).
+  - package-ecosystem: docker
+    directory: /lagoon
+    patterns: ["*"]
+    multi-ecosystem-group: base-release
 
   # The MariaDB image in docker-compose.yml.
   - package-ecosystem: docker-compose
