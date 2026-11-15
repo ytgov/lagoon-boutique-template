@@ -3,7 +3,7 @@
 ARG CLI_IMAGE=cli
 FROM ${CLI_IMAGE} AS cli
 
-FROM ghcr.io/ytgov/lagoon-boutique-base-image-nginx:11.0.2
+FROM ghcr.io/ytgov/lagoon-boutique-base-image-nginx:11.0.3
 
 COPY --from=cli /app /app
 
