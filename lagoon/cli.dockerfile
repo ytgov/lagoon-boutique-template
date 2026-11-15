@@ -1,4 +1,4 @@
-FROM ghcr.io/ytgov/lagoon-boutique-base-image-cli:11.1.0
+FROM ghcr.io/ytgov/lagoon-boutique-base-image-cli:11.2.0
 
 COPY composer.* /app/
 RUN COMPOSER_MEMORY_LIMIT=-1 composer install --no-dev
