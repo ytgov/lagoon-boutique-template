@@ -11,7 +11,6 @@ dependencies:
     - matomo
     - media
     - node
-    - search
     - shortcut
     - system
 _core:
@@ -26,8 +25,6 @@ permissions:
   - 'access help pages'
   - 'access shortcuts'
   - 'opt-in or out of matomo tracking'
-  - 'search content'
-  - 'use advanced search'
   - 'use text format webform_default'
   - 'view media'
   - 'view own unpublished content'

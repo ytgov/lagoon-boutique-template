@@ -3116,6 +3116,78 @@
             "published-time": "2026-04-24T05:02:35+00:00"
         },
         {
+            "name": "drupal/search_api",
+            "version": "1.43.0",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/search_api.git",
+                "reference": "8.x-1.43"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/search_api-8.x-1.43.zip",
+                "reference": "8.x-1.43",
+                "shasum": "2176deccfe21141e357c9002ea8e6a7560e91a23"
+            },
+            "require": {
+                "drupal/core": "^10.3 || ^11 || ^12"
+            },
+            "conflict": {
+                "drupal/search_api_solr": "2.* || 3.0 || 3.1"
+            },
+            "require-dev": {
+                "drupal/config_readonly": "1.x-dev",
+                "drupal/language_fallback_fix": "1.x-dev",
+                "drupal/search_api_autocomplete": "1.x-dev",
+                "drupal/search_api_db": "*"
+            },
+            "suggest": {
+                "drupal/facets": "Adds the ability to create faceted searches.",
+                "drupal/search_api_autocomplete": "Allows adding autocomplete suggestions to search fields.",
+                "drupal/search_api_solr": "Adds support for using Apache Solr as a backend."
+            },
+            "type": "drupal-module",
+            "extra": {
+                "drupal": {
+                    "version": "8.x-1.43",
+                    "datestamp": "1793194856",
+                    "security-coverage": {
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
+                    }
+                },
+                "branch-alias": {
+                    "dev-8.x-1.x": "1.x-dev"
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Thomas Seidl",
+                    "homepage": "https://www.drupal.org/u/drunken-monkey"
+                },
+                {
+                    "name": "Nick Veenhof",
+                    "homepage": "https://www.drupal.org/u/nick_vh"
+                },
+                {
+                    "name": "See other contributors",
+                    "homepage": "https://www.drupal.org/node/790418/committers"
+                }
+            ],
+            "description": "Provides a generic framework for modules offering search capabilities.",
+            "homepage": "https://www.drupal.org/project/search_api",
+            "support": {
+                "source": "https://git.drupalcode.org/project/search_api",
+                "issues": "https://www.drupal.org/project/issues/search_api",
+                "irc": "irc://irc.freenode.org/drupal-search-api"
+            },
+            "published-time": "2026-10-28T09:14:58+00:00"
+        },
+        {
             "name": "drupal/simple_sitemap",
             "version": "4.2.3",
             "source": {
@@ -9810,16 +9882,16 @@
         },
         {
             "name": "ytgov/lagoon-boutique-base-image",
-            "version": "v11.0.3",
+            "version": "v11.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ytgov/lagoon-boutique-base-image.git",
-                "reference": "968395f12d51a8320bc6a71c9b57c1e6cbe14f4d"
+                "reference": "c63c68a91c30c86bd1fac66ad3a37e266c13c1d5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ytgov/lagoon-boutique-base-image/zipball/968395f12d51a8320bc6a71c9b57c1e6cbe14f4d",
-                "reference": "968395f12d51a8320bc6a71c9b57c1e6cbe14f4d",
+                "url": "https://api.github.com/repos/ytgov/lagoon-boutique-base-image/zipball/c63c68a91c30c86bd1fac66ad3a37e266c13c1d5",
+                "reference": "c63c68a91c30c86bd1fac66ad3a37e266c13c1d5",
                 "shasum": ""
             },
             "require": {
@@ -9845,6 +9917,7 @@
                 "drupal/paragraphs": "^1.15.0",
                 "drupal/pathauto": "^1.11.0",
                 "drupal/redirect": "^1.8.0",
+                "drupal/search_api": "^1.43",
                 "drupal/simple_sitemap": "^4.2.2",
                 "drupal/svg_image_field": "^2.2.0-beta1",
                 "drupal/symfony_mailer": "^1.5",
@@ -9918,10 +9991,10 @@
             "support": {
                 "docs": "https://www.drupal.org/docs/user_guide/en/index.html",
                 "chat": "https://www.drupal.org/node/314178",
-                "source": "https://github.com/ytgov/lagoon-boutique-base-image/tree/v11.0.3",
+                "source": "https://github.com/ytgov/lagoon-boutique-base-image/tree/v11.1.0",
                 "issues": "https://github.com/ytgov/lagoon-boutique-base-image/issues"
             },
-            "time": "2026-11-15T17:02:54+00:00"
+            "time": "2026-11-15T21:00:07+00:00"
         }
     ],
     "packages-dev": [],
