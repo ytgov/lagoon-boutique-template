@@ -1,0 +1,5 @@
+services:
+  yg_login.route_subscriber:
+    class: Drupal\yg_login\Routing\RouteSubscriber
+    tags:
+      - { name: event_subscriber }
