@@ -9,8 +9,7 @@ settings:
   client_id: SEELOCALSETTINGS
   client_secret: SEELOCALSETTINGS
   iss_allowed_domains: ''
-  prompt:
-    login: login
+  prompt: {  }
   issuer_url: ''
   authorization_endpoint: SEELOCALSETTINGS
   token_endpoint: SEELOCALSETTINGS

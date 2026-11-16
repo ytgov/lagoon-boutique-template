@@ -61,11 +61,11 @@ contain only alphanumeric or hyphen characters.
 
 ## Yukon SSO (OpenID Connect)
 
-Staff sign in with Yukon SSO, the OpenID Connect client `generic` (redirect URL
-`/openid-connect/generic`). Its credentials and endpoints differ for each
-environment (DEV, UAT, PROD), so `config/sync` holds the placeholder
-`SEELOCALSETTINGS` and `settings.php` reads the real values from these
-environment variables:
+Staff sign in with MyYukon through Yukon SSO, the OpenID Connect client
+`generic` (redirect URL `/openid-connect/generic`). Its credentials and
+endpoints differ for each environment (DEV, UAT, PROD), so `config/sync` holds
+the placeholder `SEELOCALSETTINGS` and `settings.php` reads the real values
+from these environment variables:
 
 | Variable | Client setting |
 |---|---|
@@ -81,9 +81,31 @@ environment variables:
   values there.
 
 Without all five, the client is turned off and the password login form shows.
-With them, the login form shows only the Yukon SSO button; add `?showcore` to
-`/user/login` for the password form.
+With them, the login form shows only the "Log in with MyYukon" button; add
+`?showcore` to `/user/login` for the password form (break-glass).
 
 Never enter real values in the client's settings form: they would be saved to
 config and exported to git. The canary fails if `config/sync` holds anything
 other than the placeholder.
+
+### Login standards
+
+- **No prompt.** The client sends no `prompt`. MyYukon passes it on to Entra
+  ID, which rejects it combined with the one MyYukon adds ("AADSTS90023:
+  Unsupported 'prompt' value"). openid_connect 3.x gives new clients `login`,
+  so check this after adding a client or upgrading from 1.x. The status report
+  warns about it; that's expected. The canary fails if a client has a prompt.
+- **No self-registration.** *Override registration settings* is off, so only
+  existing accounts can sign in. An administrator creates each account; it's
+  linked to MyYukon on its first sign-in by email (*Automatically connect
+  existing users*, on). That's safe only if the site's MyYukon sign-in
+  comes from Entra ID, which owns staff email addresses: confirm it with the
+  MyYukon team for each site.
+- **No password reset.** The `yg_login` module turns off `/user/password`
+  (the canary checks it returns 403) and removes the login page's tabs.
+  Staff have no passwords, and a reset would let anyone who can read a staff
+  mailbox give the account one. For break-glass access, run
+  `drush user:login` on the server.
+- **Button text.** `yg_login` labels the button "Log in with MyYukon". Its
+  French version is an interface translation of that string, set on each
+  site.
