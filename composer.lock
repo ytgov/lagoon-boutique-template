@@ -10026,16 +10026,16 @@
         },
         {
             "name": "ytgov/lagoon-boutique-base-image",
-            "version": "v11.2.1",
+            "version": "v11.2.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ytgov/lagoon-boutique-base-image.git",
-                "reference": "b5e6d3959c36435dce3c736adf0e1f60fc67bb72"
+                "reference": "e2079521d3d10e4770bed079ca9cfedb92d021c0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ytgov/lagoon-boutique-base-image/zipball/b5e6d3959c36435dce3c736adf0e1f60fc67bb72",
-                "reference": "b5e6d3959c36435dce3c736adf0e1f60fc67bb72",
+                "url": "https://api.github.com/repos/ytgov/lagoon-boutique-base-image/zipball/e2079521d3d10e4770bed079ca9cfedb92d021c0",
+                "reference": "e2079521d3d10e4770bed079ca9cfedb92d021c0",
                 "shasum": ""
             },
             "require": {
@@ -10137,10 +10137,10 @@
             "support": {
                 "docs": "https://www.drupal.org/docs/user_guide/en/index.html",
                 "chat": "https://www.drupal.org/node/314178",
-                "source": "https://github.com/ytgov/lagoon-boutique-base-image/tree/v11.2.1",
+                "source": "https://github.com/ytgov/lagoon-boutique-base-image/tree/v11.2.2",
                 "issues": "https://github.com/ytgov/lagoon-boutique-base-image/issues"
             },
-            "time": "2026-11-16T00:12:47+00:00"
+            "time": "2026-11-16T16:37:18+00:00"
         }
     ],
     "packages-dev": [],
