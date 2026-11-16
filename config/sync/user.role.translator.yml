@@ -19,7 +19,6 @@ dependencies:
     - system
     - taxonomy
     - tmgmt
-    - tmgmt_local
     - toolbar
 id: translator
 label: Translator
@@ -43,7 +42,6 @@ permissions:
   - 'delete media'
   - 'delete own files'
   - 'delete translation jobs'
-  - 'provide translation services'
   - 'submit translation jobs'
   - 'switch shortcut sets'
   - 'translate any entity'

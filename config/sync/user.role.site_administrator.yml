@@ -22,7 +22,6 @@ dependencies:
     - system
     - taxonomy
     - tmgmt
-    - tmgmt_local
     - toolbar
     - webform
 id: site_administrator
@@ -48,7 +47,6 @@ permissions:
   - 'administer menu'
   - 'administer redirects'
   - 'administer taxonomy'
-  - 'administer translation tasks'
   - 'administer url aliases'
   - 'administer webform submission'
   - 'bypass node access'
@@ -68,7 +66,6 @@ permissions:
   - 'delete own files'
   - 'delete translation jobs'
   - 'edit any webform submission'
-  - 'provide translation services'
   - 'revert all revisions'
   - 'revert all taxonomy revisions'
   - 'submit translation jobs'
