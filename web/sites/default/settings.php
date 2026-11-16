@@ -141,6 +141,29 @@ if (file_exists(__DIR__ . '/settings.local.php')) {
   include __DIR__ . '/settings.local.php';
 }
 
+// Yukon SSO: the OpenID Connect "generic" client. config/sync holds
+// SEELOCALSETTINGS placeholders; each environment sets its own credentials and
+// endpoints in these environment variables (on Lagoon, as runtime variables;
+// on other servers, with putenv() in settings.local.php). Without all five,
+// the client is off and the password login form shows.
+$oidc_settings = array_filter([
+  'client_id' => getenv('OIDC_CLIENT_ID'),
+  'client_secret' => getenv('OIDC_CLIENT_SECRET'),
+  'authorization_endpoint' => getenv('OIDC_AUTHORIZATION_ENDPOINT'),
+  'token_endpoint' => getenv('OIDC_TOKEN_ENDPOINT'),
+  'userinfo_endpoint' => getenv('OIDC_USERINFO_ENDPOINT'),
+]);
+if (count($oidc_settings) === 5) {
+  foreach ($oidc_settings as $key => $value) {
+    $config['openid_connect.client.generic']['settings'][$key] = $value;
+  }
+}
+else {
+  $config['openid_connect.client.generic']['status'] = FALSE;
+  $config['openid_connect.settings']['user_login_display'] = 'hidden';
+}
+unset($oidc_settings);
+
 // Last: This server's specific services file.
 if (file_exists(__DIR__ . '/services.local.yml')) {
   $settings['container_yamls'][] = __DIR__ . '/services.local.yml';

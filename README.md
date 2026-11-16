@@ -58,3 +58,32 @@ contain only alphanumeric or hyphen characters.
 8. Genuflect to the Drupal God: `ddev drush cr`
 9. Add the user created in step #4 to the Administrator role.
 10. Verify there any errors shown on the Drupal Status report (`/admin/reports/status`) are within reason.
+
+## Yukon SSO (OpenID Connect)
+
+Staff sign in with Yukon SSO, the OpenID Connect client `generic` (redirect URL
+`/openid-connect/generic`). Its credentials and endpoints differ for each
+environment (DEV, UAT, PROD), so `config/sync` holds the placeholder
+`SEELOCALSETTINGS` and `settings.php` reads the real values from these
+environment variables:
+
+| Variable | Client setting |
+|---|---|
+| `OIDC_CLIENT_ID` | Client ID |
+| `OIDC_CLIENT_SECRET` | Client secret |
+| `OIDC_AUTHORIZATION_ENDPOINT` | Authorization endpoint |
+| `OIDC_TOKEN_ENDPOINT` | Token endpoint |
+| `OIDC_USERINFO_ENDPOINT` | UserInfo endpoint |
+
+- On Lagoon, set them as runtime environment variables for each environment.
+- On other servers, set them with `putenv()` in the untracked
+  `web/sites/default/settings.local.php`, for example
+  `putenv('OIDC_CLIENT_ID=...');`.
+
+Without all five, the client is turned off and the password login form shows.
+With them, the login form shows only the Yukon SSO button; add `?showcore` to
+`/user/login` for the password form.
+
+Never enter real values in the client's settings form: they would be saved to
+config and exported to git. The canary fails if `config/sync` holds anything
+other than the placeholder.
