@@ -76,9 +76,9 @@ environment variables:
 | `OIDC_USERINFO_ENDPOINT` | UserInfo endpoint |
 
 - On Lagoon, set them as runtime environment variables for each environment.
-- On other servers, set them with `putenv()` in the untracked
-  `web/sites/default/settings.local.php`, for example
-  `putenv('OIDC_CLIENT_ID=...');`.
+- On other servers, copy `web/sites/default/example.settings.local.php` to
+  `web/sites/default/settings.local.php` (git ignores it) and fill in the
+  values there.
 
 Without all five, the client is turned off and the password login form shows.
 With them, the login form shows only the Yukon SSO button; add `?showcore` to
