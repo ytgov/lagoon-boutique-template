@@ -3,6 +3,6 @@ _core:
 always_save_userinfo: true
 connect_existing_users: true
 override_registration_settings: false
-user_login_display: replace
+user_login_display: force_replace
 userinfo_mappings:
   timezone: zoneinfo
