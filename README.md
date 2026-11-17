@@ -80,9 +80,10 @@ from these environment variables:
   `web/sites/default/settings.local.php` (git ignores it) and fill in the
   values there.
 
-Without all five, the client is turned off and the password login form shows.
-With them, the login form shows only the "Log in with MyYukon" button; add
-`?showcore` to `/user/login` for the password form (break-glass).
+Without all five, the client is turned off and the password login form shows
+(`settings.php` overrides the button display to "Hidden"), as in DDEV and the
+canary. With them, the login page shows only the "Log in with MyYukon" button,
+and there's no password login at all (see below).
 
 Never enter real values in the client's settings form: they would be saved to
 config and exported to git. The canary fails if `config/sync` holds anything
@@ -101,11 +102,20 @@ other than the placeholder.
   existing users*, on). That's safe only if the site's MyYukon sign-in
   comes from Entra ID, which owns staff email addresses: confirm it with the
   MyYukon team for each site.
-- **No password reset.** The `yg_login` module turns off `/user/password`
-  (the canary checks it returns 403) and removes the login page's tabs.
-  Staff have no passwords, and a reset would let anyone who can read a staff
-  mailbox give the account one. For break-glass access, run
-  `drush user:login` on the server.
+- **No password login.** "OpenID buttons display in user login form" is
+  "Force replace" (`force_replace`), so the password form doesn't show, not
+  even with `?showcore`. A password login bypasses MyYukon's sign-in checks,
+  and removing someone's MyYukon access wouldn't remove it.
+- **No password reset or JSON login.** The `yg_login` module turns off
+  `/user/password` (the canary checks it returns 403) and the JSON login
+  (`POST /user/login?_format=json`, which accepts a password whatever the
+  login page shows; it exists whenever the serialization module is on), and
+  removes the login page's tabs. Staff have no passwords, and a reset would
+  let anyone who can read a staff mailbox give the account one.
+- **Break-glass access** is `drush user:login <name>` from a shell on the
+  server, for a named administrator who normally signs in with MyYukon. It
+  doesn't work for blocked accounts. Once named administrators can sign in,
+  block the installer's account (`drush user:block admin`) on each server.
 - **Button text.** `yg_login` labels the button "Log in with MyYukon". Its
   French version is an interface translation of that string, set on each
   site.

@@ -1,6 +1,6 @@
 name: YG login
 type: module
-description: 'YG login standards: staff sign in with MyYukon, and password reset is off. See README.md.'
+description: 'YG login standards: staff sign in with MyYukon only; password reset and the JSON login are off. See README.md.'
 core_version_requirement: ^11.3
 package: YG
 dependencies:
